@@ -17,7 +17,7 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 
 ## Installation
 
-1. Download the plugin from the [Godot Asset Library](https://godotengine.org/asset-library/asset/123456).
+1. Download the plugin from the [Godot Asset Library](https://godotengine.org/asset-library/).
 2. Import the plugin into your Godot project.
 
 3. Enable the plugin in your project settings.
