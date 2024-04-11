@@ -21,10 +21,16 @@ var _zoom_level : float = 1.0 :
 var _previousPosition: Vector2 = Vector2(0, 0)
 var _moveCamera: bool = false
 
+var main_cam : Camera2D
+
+
+func _ready() -> void:
+	main_cam = get_viewport().get_camera_2d()
+
 
 func _process(_delta: float) -> void:
 	if !enabled:
-		position = find_camera_2d_or_null(get_tree().current_scene.get_children()).position
+		position = main_cam.global_position
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -49,17 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Toggle cameras
 	if event is InputEventKey && event.is_pressed():
 		if event.keycode == KEY_MINUS:
-			var cam := find_camera_2d_or_null(get_tree().current_scene.get_children())
+			var cam := main_cam
 			cam.enabled = !cam.enabled
 			enabled = !cam.enabled
 
-
-func find_camera_2d_or_null(nodes: Array[Node]) -> Camera2D:
-	var camera: Camera2D
-	
-	for node in nodes:
-		if node is Camera2D:
-			camera = node as Camera2D
-			break
-			
-	return camera

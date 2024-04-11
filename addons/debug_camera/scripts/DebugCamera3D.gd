@@ -11,11 +11,17 @@ class_name DebugCamera3D
 
 @onready var _velocity = default_velocity
 
+var main_cam : Camera3D
+
+
+func _ready() -> void:
+	main_cam = get_viewport().get_camera_3d()
+
 
 func _process(delta: float) -> void:
 	if !current:
-		position = find_camera_3d_or_null(get_tree().current_scene.get_children()).position
-		rotation = find_camera_3d_or_null(get_tree().current_scene.get_children()).rotation
+		position = main_cam.global_position
+		rotation = main_cam.global_rotation
 		return
 	
 	var direction = Vector3(
@@ -49,17 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Toggle cameras
 	if event is InputEventKey && event.is_pressed():
 		if event.keycode == KEY_MINUS:
-			var cam := find_camera_3d_or_null(get_tree().current_scene.get_children())
+			var cam := main_cam
 			cam.current = !cam.current
 			current = !cam.current
 
-
-func find_camera_3d_or_null(nodes: Array[Node]) -> Camera3D:
-	var camera: Camera3D
-	
-	for node in nodes:
-		if node is Camera3D:
-			camera = node as Camera3D
-			break
-			
-	return camera
