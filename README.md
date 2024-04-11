@@ -12,13 +12,14 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 
 ## Showcase
 
-- [3D Showcase Video](https://www.example.com/3d_showcase_video)
-- [2D Showcase Video](https://www.example.com/2d_showcase_video)
+- [3D Showcase Video](https://github.com/kcfresh53/Godot-Debug-Camera/assets/62062589/6beda3b9-d5d4-472f-8ba7-52ac417a6ee0)
+- [2D Showcase Video](https://github.com/kcfresh53/Godot-Debug-Camera/assets/62062589/c2d11e73-1708-4440-b50a-f4a8d7abf995)
 
 ## Installation
 
 1. Download the plugin from the [Godot Asset Library](https://godotengine.org/asset-library/asset/123456).
 2. Import the plugin into your Godot project.
+
 3. Enable the plugin in your project settings.
 
 ## Usage
