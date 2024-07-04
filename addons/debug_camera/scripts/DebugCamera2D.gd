@@ -37,10 +37,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		# zoom out
 		if event.pressed && event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			_zoom_level = _zoom_level - zoom_factor
+			_zoom_level = _zoom_level - zoom_factor * _zoom_level
 		# zoom in
 		if event.pressed && event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			_zoom_level = _zoom_level + zoom_factor
+			_zoom_level = _zoom_level + zoom_factor * _zoom_level
 	
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.is_pressed():
@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			_moveCamera = false
 	elif event is InputEventMouseMotion && _moveCamera:
-		position += (_previousPosition - event.position)
+		position += (_previousPosition - event.position) / _zoom_level
 		_previousPosition = event.position
 	
 	# Toggle cameras
