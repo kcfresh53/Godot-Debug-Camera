@@ -13,3 +13,11 @@ config_version=5
 config/name="Godot Debug Camera"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.png"
+
+[autoload]
+
+DebugCam="*res://addons/debug_camera/scripts/DebugCamAutoload.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_camera/plugin.cfg")
