@@ -1,9 +1,14 @@
+![icon.png](https://raw.githubusercontent.com/kcfresh53/Godot-Debug-Camera/refs/heads/master/icon.png)
+
 # Godot 4 Debug Camera
 
 This plugin provides a debug camera for Godot 4 projects, allowing for easy navigation and debugging within both 2D and 3D environments.
 
 ## Key Features
 
+- Real-time editing of objects in a scene.
+- Real-time property previews (name, transform, etc).
+- Run-time debug collision visibility toggle.
 - Toggle the debug camera with the minus (-) key.
 - Works seamlessly in both 2D and 3D projects.
 - 3D camera controls utilize default editor camera controls.
@@ -18,6 +23,7 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 ## Installation
 
 1. Download the plugin from the [Godot Asset Library](https://godotengine.org/asset-library/).
+
 2. Import the plugin into your Godot project.
 
 3. Enable the plugin in your project settings.
@@ -35,6 +41,7 @@ If you encounter any issues or have any questions, feel free to [open an issue](
 ## Special Thanks
 
 Special thanks goes to: 
+
 - Chris Charbonneau for the base [Gizmo3D](https://github.com/chrisizeful/Gizmo3D) code.
 - [raidone01](https://github.com/raldone01) for thr collision shape debug toggle code.
 
