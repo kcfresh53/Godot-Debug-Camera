@@ -38,6 +38,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Pause Game"
 
+[node name="SelectableAreasCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Selectable Areas"
+
 [node name="VisibleCollisionCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
 layout_mode = 2
 text = "Visible Collision Shapes"
@@ -154,5 +159,6 @@ horizontal_alignment = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="toggled" from="MarginContainer/Content/LeftRegion/PauseGameCheckBox" to="." method="_on_pause_game_check_box_toggled"]
+[connection signal="toggled" from="MarginContainer/Content/LeftRegion/SelectableAreasCheckBox" to="." method="_on_selectable_areas_check_box_toggled"]
 [connection signal="toggled" from="MarginContainer/Content/LeftRegion/VisibleCollisionCheckBox" to="." method="_on_visible_collision_check_box_toggled"]
 [connection signal="item_selected" from="MarginContainer/Content/LeftRegion/GizmoModeContainer/GizmoOptionButton" to="." method="_on_gizmo_option_button_item_selected"]

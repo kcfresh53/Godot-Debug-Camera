@@ -6,6 +6,7 @@ var active: bool = false:
 	set(value):
 		active = value
 		_gizmo.visible = active
+var selectable_areas: bool = false
 
 var _gizmo: Gizmo3D = Gizmo3D.new()
 
@@ -35,7 +36,7 @@ func _process_mouse_click(event: InputEventMouseButton) -> void:
 	
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var ray_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
-	ray_query.collide_with_areas = true
+	ray_query.collide_with_areas = selectable_areas
 	ray_query.collide_with_bodies = true
 	ray_query.collision_mask = 0xFFFFFFFF  # Check all layers
 

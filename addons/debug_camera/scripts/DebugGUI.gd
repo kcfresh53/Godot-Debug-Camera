@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var pause_game_check_box: CheckBox = %PauseGameCheckBox
+@onready var selectable_areas_check_box: CheckBox = %SelectableAreasCheckBox
 @onready var selected_node_label: Label = %SelectedNodeLabel
 @onready var node_properties_container: BoxContainer = %NodePropertiesContainer
 @onready var selected_node_name_label: Label = %SelectedNodeNameLabel
@@ -93,9 +94,10 @@ func _on_visibility_changed() -> void:
 	if not visible:
 		_selected_node = null
 	else:
+		pause_game_check_box.button_pressed = get_tree().paused
+		selectable_areas_check_box.button_pressed = DebugCam.gizmo_manager_3d.selectable_areas
 		if _selected_node == null:
 			node_properties_container.visible = false
-			pause_game_check_box.button_pressed = get_tree().paused
 
 
 func _on_pause_game_check_box_toggled(toggled_on: bool) -> void:
@@ -110,5 +112,5 @@ func _on_gizmo_option_button_item_selected(index: int) -> void:
 	DebugCam.gizmo_manager_3d.update_gizmo_mode(index)
 
 
-func _notification(what: int) -> void:
-	pass
+func _on_selectable_areas_check_box_toggled(toggled_on: bool) -> void:
+	DebugCam.gizmo_manager_3d.selectable_areas = toggled_on
