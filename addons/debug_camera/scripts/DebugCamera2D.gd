@@ -26,6 +26,7 @@ var main_cam : Camera2D
 
 func _ready() -> void:
 	main_cam = get_viewport().get_camera_2d()
+	process_mode = PROCESS_MODE_ALWAYS
 
 
 func _process(_delta: float) -> void:
@@ -33,7 +34,7 @@ func _process(_delta: float) -> void:
 		position = main_cam.global_position
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		# zoom out
 		if event.pressed && event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -58,4 +59,4 @@ func _unhandled_input(event: InputEvent) -> void:
 			var cam := main_cam
 			cam.enabled = !cam.enabled
 			enabled = !cam.enabled
-
+			get_tree().paused = !get_tree().paused

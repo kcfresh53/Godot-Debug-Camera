@@ -1,0 +1,158 @@
+[gd_scene load_steps=2 format=3 uid="uid://tkf7rd7fo3rk"]
+
+[ext_resource type="Script" path="res://addons/debug_camera/scripts/DebugGUI.gd" id="1_81vpl"]
+
+[node name="DebugGui" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_81vpl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="BoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LeftRegion" type="BoxContainer" parent="MarginContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 2
+vertical = true
+
+[node name="DebugLabel" type="Label" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+text = "Debug Mode Active"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PauseGameCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pause Game"
+
+[node name="VisibleCollisionCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+text = "Visible Collision Shapes"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GizmoModeContainer" type="BoxContainer" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Content/LeftRegion/GizmoModeContainer"]
+layout_mode = 2
+text = "Gizmo mode:"
+
+[node name="GizmoOptionButton" type="OptionButton" parent="MarginContainer/Content/LeftRegion/GizmoModeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+item_count = 4
+popup/item_0/text = "All"
+popup/item_1/text = "Move"
+popup/item_1/id = 1
+popup/item_2/text = "Rotate"
+popup/item_2/id = 2
+popup/item_3/text = "Scale"
+popup/item_3/id = 3
+
+[node name="SelectedNodeLabel" type="Label" parent="MarginContainer/Content/LeftRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Selected Node Properties:"
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Content/LeftRegion"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NodePropertiesContainer" type="BoxContainer" parent="MarginContainer/Content/LeftRegion"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+vertical = true
+
+[node name="SelectedNodeNameLabel" type="Label" parent="MarginContainer/Content/LeftRegion/NodePropertiesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name:"
+
+[node name="SelectedNodePositionLabel" type="Label" parent="MarginContainer/Content/LeftRegion/NodePropertiesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Position:"
+
+[node name="SelectedNodeRotationLabel" type="Label" parent="MarginContainer/Content/LeftRegion/NodePropertiesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotation:"
+
+[node name="SelectedNodeScaleLabel" type="Label" parent="MarginContainer/Content/LeftRegion/NodePropertiesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Scale:"
+
+[node name="RightRegion" type="BoxContainer" parent="MarginContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 10
+vertical = true
+
+[node name="FPSLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FPS:"
+horizontal_alignment = 2
+
+[node name="ProcessLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Process:"
+horizontal_alignment = 2
+
+[node name="PhysicsProcessLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Physics Process:"
+horizontal_alignment = 2
+
+[node name="CPUFrameTimeLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CPU Frame Time (ms):"
+horizontal_alignment = 2
+
+[node name="GPUFrameTimeLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "GPU Frame Time (ms):"
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Content/RightRegion"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StaticMemoryLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Static Memory:"
+horizontal_alignment = 2
+
+[node name="ObjectsLabel" type="Label" parent="MarginContainer/Content/RightRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Objects:"
+horizontal_alignment = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="toggled" from="MarginContainer/Content/LeftRegion/PauseGameCheckBox" to="." method="_on_pause_game_check_box_toggled"]
+[connection signal="toggled" from="MarginContainer/Content/LeftRegion/VisibleCollisionCheckBox" to="." method="_on_visible_collision_check_box_toggled"]
+[connection signal="item_selected" from="MarginContainer/Content/LeftRegion/GizmoModeContainer/GizmoOptionButton" to="." method="_on_gizmo_option_button_item_selected"]

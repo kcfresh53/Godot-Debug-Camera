@@ -32,6 +32,12 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 
 If you encounter any issues or have any questions, feel free to [open an issue](https://github.com/kcfresh53/Godot-Debug-Camera/issues) on GitHub.
 
+## Special Thanks
+
+Special thanks goes to: 
+- Chris Charbonneau for the base [Gizmo3D](https://github.com/chrisizeful/Gizmo3D) code.
+- [raidone01](https://github.com/raldone01) for thr collision shape debug toggle code.
+
 ## License
 
 This plugin is licensed under the [MIT License](LICENSE).

@@ -16,6 +16,7 @@ var main_cam : Camera3D
 
 func _ready() -> void:
 	main_cam = get_viewport().get_camera_3d()
+	process_mode = PROCESS_MODE_ALWAYS
 
 
 func _process(delta: float) -> void:
@@ -36,7 +37,7 @@ func _process(delta: float) -> void:
 		translate(direction * _velocity * delta)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.y -= event.relative.x / 1000 * sensitivity
@@ -52,10 +53,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_WHEEL_DOWN: # decrease fly velocity
 				_velocity = clamp(_velocity / speed_scale, min_speed, max_speed)
 	
-	# Toggle cameras
+	# Toggle cameras and gizmos
 	if event is InputEventKey && event.is_pressed():
 		if event.keycode == KEY_MINUS:
 			var cam := main_cam
 			cam.current = !cam.current
 			current = !cam.current
-
+			
+			DebugCam.gizmo_manager_3d.active = !DebugCam.gizmo_manager_3d.active
+			DebugCam.gui_instance.visible = !DebugCam.gui_instance.visible
+			get_tree().paused = !get_tree().paused
