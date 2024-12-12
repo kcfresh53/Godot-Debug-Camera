@@ -5,7 +5,8 @@ var ray_length: float = 1000.0
 var active: bool = false:
 	set(value):
 		active = value
-		_gizmo.visible = active
+		if _gizmo.target:
+			_gizmo.visible = active
 var selectable_areas: bool = false
 
 var _gizmo: Gizmo3D = Gizmo3D.new()
@@ -21,8 +22,9 @@ func _ready() -> void:
 	get_tree().get_root().add_child.call_deferred(_gizmo)
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and active:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT\
+	and not _gizmo.editing and active:
 		_process_mouse_click(event)
 
 
@@ -44,9 +46,12 @@ func _process_mouse_click(event: InputEventMouseButton) -> void:
 	
 	if result and result.has("collider"):
 		var collider: Node3D = result.collider
-		print("Clicked on object:", collider.name)
+		#print("Clicked on object:", collider.name)
 		_manage_gizmo(collider)
 		return
+	else:
+		#print("Deselected object")
+		_manage_gizmo(null)
 	
 	# Fallback to geometry-based detection if no physics collision
 	var mouse_pos: Vector2 = event.position
@@ -55,7 +60,7 @@ func _process_mouse_click(event: InputEventMouseButton) -> void:
 	
 	var closest_object: Node3D = _find_closest_object_under_mouse(camera_ray_origin, camera_ray_normal)
 	if closest_object:
-		print("Clicked on object:", closest_object.name)
+		#print("Clicked on object:", closest_object.name)
 		_manage_gizmo(closest_object)
 
 
@@ -141,6 +146,11 @@ func _recursive_object_search(node: Node, ray_origin: Vector3, ray_normal: Vecto
 
 
 func _manage_gizmo(node: Node3D) -> void:
+	if node:
+		_gizmo.visible = true
+	else:
+		_gizmo.visible = false
+	
 	_gizmo.target = node
 	object_selected.emit(node)
 

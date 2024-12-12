@@ -83,11 +83,12 @@ func _on_3d_object_selected(node: Node3D) -> void:
 
 
 func _update_properties_text(node: Node) -> void:
-	node_properties_container.visible = true
-	selected_node_name_label.text = "Name: " + node.name
-	selected_node_position_label.text = "Position: " + str(node.global_position)
-	selected_node_rotation_label.text = "Rotation: " + str(node.rotation)
-	selected_node_scale_label.text = "Scale: " + str(node.scale)
+	if node:
+		node_properties_container.visible = true
+		selected_node_name_label.text = "Name: " + node.name
+		selected_node_position_label.text = "Position: " + str(node.global_position)
+		selected_node_rotation_label.text = "Rotation: " + str(node.rotation)
+		selected_node_scale_label.text = "Scale: " + str(node.scale)
 
 
 func _on_visibility_changed() -> void:
