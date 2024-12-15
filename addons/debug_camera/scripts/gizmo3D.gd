@@ -235,7 +235,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if target == null || !is_instance_valid(target) || target.is_queued_for_deletion():
 		return
-	position = target.position
+	global_position = target.global_position
 	_update_transform_gizmo_view()
 
 func _exit_tree() -> void:

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://tkf7rd7fo3rk"]
+[gd_scene load_steps=3 format=3 uid="uid://tkf7rd7fo3rk"]
 
 [ext_resource type="Script" path="res://addons/debug_camera/scripts/DebugGUI.gd" id="1_81vpl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s560w"]
 
 [node name="DebugGui" type="CanvasLayer"]
 layer = 100
@@ -36,15 +38,23 @@ theme_override_constants/separation = 10
 [node name="PauseGameCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s560w")
 text = "Pause Game"
 
 [node name="SelectableAreasCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s560w")
 text = "Selectable Areas"
+
+[node name="SelectableGridMapsCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Selectable Grid Maps"
 
 [node name="VisibleCollisionCheckBox" type="CheckBox" parent="MarginContainer/Content/LeftRegion"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s560w")
 text = "Visible Collision Shapes"
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/Content/LeftRegion"]
@@ -160,5 +170,6 @@ horizontal_alignment = 2
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="toggled" from="MarginContainer/Content/LeftRegion/PauseGameCheckBox" to="." method="_on_pause_game_check_box_toggled"]
 [connection signal="toggled" from="MarginContainer/Content/LeftRegion/SelectableAreasCheckBox" to="." method="_on_selectable_areas_check_box_toggled"]
+[connection signal="toggled" from="MarginContainer/Content/LeftRegion/SelectableGridMapsCheckBox" to="." method="_on_selectable_grid_maps_check_box_toggled"]
 [connection signal="toggled" from="MarginContainer/Content/LeftRegion/VisibleCollisionCheckBox" to="." method="_on_visible_collision_check_box_toggled"]
 [connection signal="item_selected" from="MarginContainer/Content/LeftRegion/GizmoModeContainer/GizmoOptionButton" to="." method="_on_gizmo_option_button_item_selected"]

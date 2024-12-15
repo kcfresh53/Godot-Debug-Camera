@@ -8,6 +8,7 @@ var active: bool = false:
 		if _gizmo.target:
 			_gizmo.visible = active
 var selectable_areas: bool = false
+var selectable_gridmaps: bool = false
 
 var _gizmo: Gizmo3D = Gizmo3D.new()
 
@@ -42,26 +43,44 @@ func _process_mouse_click(event: InputEventMouseButton) -> void:
 	ray_query.collide_with_bodies = true
 	ray_query.collision_mask = 0xFFFFFFFF  # Check all layers
 
-	var result: Dictionary = space_state.intersect_ray(ray_query)
+	var physics_result: Dictionary = space_state.intersect_ray(ray_query)
 	
-	if result and result.has("collider"):
-		var collider: Node3D = result.collider
-		#print("Clicked on object:", collider.name)
-		_manage_gizmo(collider)
-		return
-	else:
-		#print("Deselected object")
-		_manage_gizmo(null)
-	
-	# Fallback to geometry-based detection if no physics collision
+	# Geometry-based detection
 	var mouse_pos: Vector2 = event.position
 	var camera_ray_origin: Vector3 = camera.project_ray_origin(mouse_pos)
 	var camera_ray_normal: Vector3 = camera.project_ray_normal(mouse_pos)
 	
-	var closest_object: Node3D = _find_closest_object_under_mouse(camera_ray_origin, camera_ray_normal)
-	if closest_object:
-		#print("Clicked on object:", closest_object.name)
-		_manage_gizmo(closest_object)
+	var geometry_closest_object: Node3D = _find_closest_object_under_mouse(camera_ray_origin, camera_ray_normal)
+	
+	# Determine the best object to select
+	var selected_object: Node3D = null
+	
+	# If we have both physics and geometry results
+	if physics_result and physics_result.has("collider") and geometry_closest_object:
+		var physics_collider: Node3D = physics_result.collider
+		var physics_distance: float = from.distance_to(physics_result.position)
+		var geometry_distance: float = from.distance_to(geometry_closest_object.global_position)
+		
+		# Choose the closer object, with a small preference for the geometry-detected object
+		if geometry_distance <= physics_distance:
+			selected_object = geometry_closest_object
+		else:
+			selected_object = physics_collider
+	
+	# If only physics result exists
+	elif physics_result and physics_result.has("collider"):
+		selected_object = physics_result.collider
+	
+	# If only geometry result exists
+	elif geometry_closest_object:
+		selected_object = geometry_closest_object
+	
+	# Handle special cases
+	if selected_object is GridMap and not selectable_gridmaps:
+		selected_object = null
+	
+	# Manage the selected object
+	_manage_gizmo(selected_object)
 
 
 # Custom AABB ray intersection check
