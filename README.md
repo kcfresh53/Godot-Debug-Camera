@@ -8,6 +8,7 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 
 - Real-time editing of objects in a scene.
 - Real-time property previews (name, transform, etc).
+- Change history and undo support.
 - Run-time debug collision visibility toggle.
 - Toggle the debug camera with the minus (-) key.
 - Works seamlessly in both 2D and 3D projects.
