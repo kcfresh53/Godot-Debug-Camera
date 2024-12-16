@@ -31,8 +31,9 @@ This plugin provides a debug camera for Godot 4 projects, allowing for easy navi
 ## Usage
 
 1. Press the minus (-) key to toggle the debug camera.
-2. Use the provided controls to navigate within your scene.
-3. Enjoy easy debugging and navigation in both 2D and 3D environments.
+2. Press (CTRL+Z) key combination to undo changes made.
+3. Use the provided controls to navigate within your scene.
+4. Enjoy easy debugging and navigation in both 2D and 3D environments.
 
 ## Support
 
