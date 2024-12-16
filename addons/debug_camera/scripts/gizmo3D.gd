@@ -63,6 +63,8 @@ var _editing: bool:
 	set(value):
 		_editing = value
 		if !value:
+			stopped_editing.emit()
+			print("stopped")
 			_message = ""
 ## If the user is currently interacting with is gizmo.
 var editing: bool:
@@ -178,6 +180,7 @@ enum TransformMode { NONE, ROTATE, TRANSLATE, SCALE }
 enum TransformPlane { VIEW, X, Y, Z, YZ, XZ, XY }
 
 signal updated_transform
+signal stopped_editing
 
 func _ready() -> void:
 	_move_gizmo.resize(3)
@@ -216,7 +219,9 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	_hovering = false
 	if !visible:
-		_editing = false
+		if _editing:
+			_editing = false
+	
 	elif event is InputEventKey and event.keycode == KEY_CTRL:
 		_snapping = event.pressed
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

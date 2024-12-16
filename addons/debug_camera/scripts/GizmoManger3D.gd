@@ -11,6 +11,7 @@ var selectable_areas: bool = false
 var selectable_gridmaps: bool = false
 
 var _gizmo: Gizmo3D = Gizmo3D.new()
+var _recording_action: bool = false
 
 signal object_selected(node: Node3D)
 signal gizmo_updated_transform
@@ -19,11 +20,21 @@ signal gizmo_updated_transform
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	_gizmo.visible = active
-	_gizmo.updated_transform.connect(func(): gizmo_updated_transform.emit())
+	_gizmo.updated_transform.connect(_update_history)
+	_gizmo.stopped_editing.connect(func():
+		if _gizmo.target:
+			DebugCam.edit_history_3d.record_action(_gizmo.target)
+			_recording_action = false
+		)
 	get_tree().get_root().add_child.call_deferred(_gizmo)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		# Check for Ctrl+Z (Cmd+Z on macOS)
+		if event.keycode == KEY_Z and KEY_CTRL:
+			print("Undo")
+			DebugCam.edit_history_3d.undo_last_action()
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT\
 	and not _gizmo.editing and active:
 		_process_mouse_click(event)
@@ -172,6 +183,14 @@ func _manage_gizmo(node: Node3D) -> void:
 	
 	_gizmo.target = node
 	object_selected.emit(node)
+
+
+func _update_history() -> void:
+	gizmo_updated_transform.emit()
+	
+	if not _recording_action:
+		_recording_action = true
+		DebugCam.edit_history_3d.record_action(_gizmo.target)
 
 
 func update_gizmo_mode(mode: int) -> void:
