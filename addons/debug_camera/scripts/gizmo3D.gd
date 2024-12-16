@@ -64,7 +64,6 @@ var _editing: bool:
 		_editing = value
 		if !value:
 			stopped_editing.emit()
-			print("stopped")
 			_message = ""
 ## If the user is currently interacting with is gizmo.
 var editing: bool:
